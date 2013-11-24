@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <title>Gweezyshot</title>
+
+    <script src="js/lib/jquery.src.js"></script>
+    <script src="js/GwUploader.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/plugin.css" />
+</head>
+<body>
+<div id="gweezy-overlay">
+
+    <!-- Login
+
+    <div class="screen login-view login" >
+        <h1>Welcome to Gweezy</h1>
+        <h2>Use <strong>Gweezy</strong> to analyse this page</h2>
+        <form id="__gweezy_login_form" class="login-form">
+            <ul id="__gweezy_login_errors" style="display: none" class="errors"></ul>
+            <input id="__gweezy_login" type="text" placeholder="Username or Email" name="login" value=""><br>
+            <input id="__gweezy_password" type="password" placeholder="Password" name="password" value=""><br>
+            <input type="submit" value="Log In">
+        </form>
+    </div>'
+
+     / Login -->
+
+    <!--
+
+    <div class="screen plugin-screen">
+        <h1>Your Screen</h1>
+        <form id="__gweezy_form" action="#">
+            <p>
+                <label for="screenname">Screen\'s name</label>
+                <input id="__gweezy_screenname" class="screenname" name="screenname" class="data" type="text" />
+            </p>
+
+            <p>
+                <label for="foldername">Select a folder</label>
+    			<span class="data select" >
+				    <select id="__gweezy_foldername">
+                        <option id="1">option 1</option>
+                        <option id="2">option 2</option>
+                        <option id="3">option 3</option>
+                    </select>
+			    </span>
+            </p>
+
+            <input type="submit" id="__gweezy_button" value="Add to Gweezy" class= "upload"/>
+        </form>
+    </div>
+
+      -->
+
+    <!-- Success
+
+    <div class="screen content congrats">
+        <p><strong>Congrats!</strong> The screen was added to your library</p>
+        <a id="__gweezy_link" class="goto"  target="_blank">Go to Gweezy</a>
+        <a id="__gweezy_popup_close" class="close" href="javascript:void(0)">Close</a>
+    </div>
+
+     / Success -->
+
+    <!-- Loading -->
+    <div id="test" class="screen  loading-content">
+        <span id="__gweezy_loading_message">Loading ...</span>
+          </div>
+    <!-- / Loading-->
+</div>
+<script>
+    $(function () {
+       $("#test").html('<span id="__gweezy_loading_message">Loading ...</span><progress max="100" value="100"></progress>')
+    });
+</script>
+</body>
+</html>
