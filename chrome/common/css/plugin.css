@@ -42,7 +42,6 @@ height: 32px !important; -webkit-box-sizing: border-box !important; -moz-box-siz
 #gweezy-overlay .login ul li a.linkedin { background-position: 0px -448px !important; }
 #gweezy-overlay .login ul li a.gweezy { background-position: 0px -512px !important; }
 #gweezy-overlay .screen .plugin-screen { height: 320px !important; margin-top: -160px !important; }
-#gweezy-overlay .screen .login { display: none !important; }
 #gweezy-overlay .screen form { width: 75% !important; }
 /*
 #gweezy-overlay .screen form .data { float: left !important; height: 32px !important; width: 243px !important; -webkit-box-sizing: border-box !important; -moz-box-sizing: border-box !important; -o-box-sizing: border-box !important; -icab-box-sizing: border-box !important; -khtml-box-sizing: border-box !important; -ms-box-sizing: border-box !important; box-sizing: border-box !important; -webkit-border-radius: 3px !important; -khtml-border-radius: 3px !important; -icab-border-radius: 3px !important; -moz-border-radius: 3px !important; -ms-border-radius: 3px !important; -o-border-radius: 3px !important; border-radius: 3px !important; -webkit-background-clip: padding-box !important; -khtml-background-clip: padding-box !important; -icab-background-clip: padding-box !important; -moz-background-clip: padding !important; -ms-background-clip: padding-box !important; -o-background-clip: padding-box !important; background-clip: padding-box !important; border: 1px solid #cccccc !important; padding: 5px !important; color: #666666 !important; outline: 0 !important; font-size: 13px !important; }
@@ -135,3 +134,18 @@ progress[value]::-webkit-progress-value {
 @keyframes animate-stripes {
     100% { background-position: -100px 0px; }
 }
+
+#__gweezy_error {
+    display: none;
+    position: absolute;
+    top: 8px;
+    left: 157px;
+    width: 390px;
+    height: 22px;
+    background-color: #f83d53;
+    text-align: center;
+    color: white;
+    font-family: 'Open Sans Condensed', 'Oswald', Helvetica, Arial, sans-serif !important;
+    padding-top: 2px;
+}
+

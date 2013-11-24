@@ -28,7 +28,8 @@ class GwUploader
       console.log xhr.responseText if GwConfig.debug
       return JSON.parse(xhr.responseText)
     else
-      return "Error while connecting to the server"
+      showConnectionError()
+
 
 
   isLogged: ->
@@ -68,7 +69,7 @@ class GwUploader
           if nb_try > 0
             @()
           else
-            alert('Oh no ! An error occured while uploading to Gweezy. Please try again or contact us if the problem persists.')
+            showConnectionError();
 
     xhr.send(formData)
 
@@ -129,13 +130,16 @@ class GwController
 
 
   displaySelectionWindow: ->
+    hideConnectionError()
     $("#gweezy-overlay").html(selectionWindow)
 
 
   displayLoginWindow: ->
+    hideConnectionError()
     $("#gweezy-overlay").html(loginContent)
 
   displayLoading: (message) ->
+    hideConnectionError()
     console.log "Display loading" if GwConfig.debug
     $("#gweezy-overlay").html(loadingContent)
     $("#__gweezy_loading_message").html(message)
@@ -179,7 +183,7 @@ class GwController
         $("#__gweezy_login_errors").html(login_errors).show()
     else
         console.log "Login failed"
-        "Error while contacting the server"
+        showConnectionError()
 
 
   bindPostToGweezy: (uploader) =>
@@ -218,6 +222,12 @@ class GwController
     @fillProjectFolder(projects)
     @fillScreenTitle()
     @bindPostToGweezy(@uploader)
+
+showConnectionError = () ->
+  $("#__gweezy_error").show("fast")
+
+hideConnectionError=  () ->
+  $("#__gweezy_error").hide()
 
 # Script
 launch = () ->
