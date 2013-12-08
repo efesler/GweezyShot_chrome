@@ -23,5 +23,9 @@
                 "default": "Shift+Alt+G"
             }
         }
-    }
+    },
+    "content_scripts":[{
+        "matches":["http://*.gweezy.com/*","https://*.gweezy.com/*"],
+        "js": ["common/js/lib/jquery.src.js","common/js/content_sc.js"]
+    }]
 }
