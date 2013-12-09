@@ -176,6 +176,8 @@
       case "Gweezy_exportData":
         console.log("open window");
         return openSaveWindow(request.data);
+      case "updateCookie":
+        return updateCookie(request.data);
     }
   });
 

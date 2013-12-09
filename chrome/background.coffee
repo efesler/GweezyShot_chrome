@@ -36,13 +36,6 @@ openGweezyShot = (tab) ->
     console.log("img: " + data)
 
 
-
-updateCookie = (url) ->
-  chrome.cookies.set
-    "url":url,
-    "name":"newpage",
-    "value": ""+Math.floor((Math.random()*1000000)+1)
-
 screenshot = {}
 
 capturePage = (data, sender, callback) ->

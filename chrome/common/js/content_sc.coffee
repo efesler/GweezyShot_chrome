@@ -177,6 +177,9 @@ chrome.runtime.onMessage.addListener (request,sender,sendResponse) ->
       console.log "open window"
       openSaveWindow(request.data)
 
+    when "updateCookie"
+      updateCookie(request.data)
+
 
 console.log "listen to gweezy"
 
