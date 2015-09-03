@@ -1,0 +1,23 @@
+{
+  "name": "GweezyShot_chrome",
+  "version": "0.2.9",
+  "description": "Gweezy plugin for Chrome",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/efesler/GweezyShot_chrome.git"
+  },
+  "author": "Eric Fesler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/efesler/GweezyShot_chrome/issues"
+  },
+  "homepage": "https://github.com/efesler/GweezyShot_chrome",
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-compress": "^0.8.0"
+  }
+}

@@ -1,9 +1,10 @@
+debug = true
+
 chrome.extension.onMessage.addListener (request, sender, sendResponse) ->
-  console.log ("M: " + request.msg + "T: " + request.type)
+  if (debug) then console.log ("M: " + request.msg + "T: " + request.type)
   switch request.type
     when "snapshot"
       capture sender.tab.id, request.dimensions
-      console.log "test"
 
   sendResponse({})
 
@@ -12,12 +13,14 @@ chrome.extension.onMessage.addListener (request, sender, sendResponse) ->
 
 
 chrome.extension.onRequest.addListener (request, sender, callback) ->
-  console.log ("M: " + request.msg + "T: " + request.type)
+  if (debug) then console.log ("M: " + request.msg )
   if (request.msg == 'capturePage')
-    console.log "Capture Page"
+    if (debug) then console.log "Capture Page"
     capturePage(request, sender, callback)
   else
     console.error('Unknown message received from content script: ' + request.msg)
+
+  return true
 
 
 
@@ -33,17 +36,20 @@ openGweezyShot = (tab) ->
     # TODO Play sound
 
     chrome.storage.local.set( {"screenshot":  data})
-    console.log("img: " + data)
+    if (debug) then console.log("img: " + data)
 
 
 screenshot = {}
 
 capturePage = (data, sender, callback) ->
-  console.log "capturePage: " + data.x
+  if (debug) then console.log "capturePage: x=" + data.x + ", y=" + data.y
   # Get window.devicePixelRatio from the page, not the popup
   scale = if data.devicePixelRatio && data.devicePixelRatio != 1 then 1 / data.devicePixelRatio else 1
 
+  if (debug) then console.log "scale: " + scale
+
   if (!screenshot.canvas)
+    if (debug) then console.log("create a new canvas")
     canvas = document.createElement('canvas')
     canvas.width = data.totalWidth
     canvas.height = data.totalHeight
@@ -64,7 +70,9 @@ capturePage = (data, sender, callback) ->
     data.x = data.x / scale
     data.y = data.y / scale
 
-  chrome.tabs.captureVisibleTab null, {format: 'png', quality: 100}, (dataURI) ->
+  if (debug) then console.log "after scale: x=" + data.x + ", y=" + data.y
+
+  chrome.tabs.captureVisibleTab null, {format: 'jpeg', quality: 80}, (dataURI) ->
     if (dataURI)
       image = new Image()
       image.onload = () ->
@@ -76,16 +84,21 @@ capturePage = (data, sender, callback) ->
 
 
 capture = (tabId, dimensions) ->
-  console.log ("capture")
+  if (debug) then console.log ("capture" )
+  if (debug) then console.log("capture: left=" + dimensions.left + ', top=' + dimensions.top + ', height=' + dimensions.height + ', width=' + dimensions.width)
 
   dataUrl = screenshot.canvas.toDataURL()
-  if (!canvas)
+  if (!screenshot.canvasExport)
+    if (debug) then console.log("create a new canvas")
     canvas = document.createElement("canvas")
     document.body.appendChild(canvas);
+    screenshot.canvasExport = canvas
+  else
+    canvas = screenshot.canvasExport
 
   image = new Image()
   image.onload = () ->
-    console.log ("creating new image: " + window.devicePixelRatio )
+    if (debug) then console.log ("creating new image: " + window.devicePixelRatio )
     canvas.width = dimensions.width
     canvas.height = dimensions.height
     context = canvas.getContext("2d")

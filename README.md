@@ -3,7 +3,8 @@ This is a Chrome extension that allows you to take page screenshots and send it 
 
 [Get it for Chrome](https://chrome.google.com/webstore)
 
-FireFox version will be available later.
+# Building - Packaging
+To create a packaged version, just zip the chrome folder.
 
 # Development
 

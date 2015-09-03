@@ -5,7 +5,7 @@
     },
     "name": "GweezyShot",
     "description": "Shoot your screen and send it to your Gweezy account.",
-    "version": "0.1.0",
+    "version": "0.2.9",
     "icons": {
         "16": "common/img/g_16.png",
         "48": "common/img/g_48.png",
@@ -16,7 +16,7 @@
         "default_popup": "common/popup.html"
     },
     "optional_permissions": [ "clipboardRead" ],
-    "permissions": ["tabs", "http://*.gweezy.com/", "http://*/*", "https://*/*", "notifications", "cookies"],
+    "permissions": ["activeTab", "tabs", "http://*.gweezy.com/", "http://*/*", "https://*/*", "<all_urls>", "notifications", "cookies"],
     "commands": {
         "_execute_browser_action": {
             "suggested_key": {

@@ -1,3 +1,4 @@
+debug = true
 
 generateFileName = () ->
   d = new Date
@@ -52,11 +53,11 @@ positionOf = (el) ->
 
 exportImage = () ->
   # Retrieve content
-  console.log ("exportImage")
+  if (debug) then console.log ("exportImage")
   elToExport = $("#toexport")
   dimensions = positionOf(elToExport)
 
-  console.log(dimensions.left + ',' + dimensions.top + ',' + dimensions.height + ',' + dimensions.width)
+  if (debug) then console.log(dimensions.left + ',' + dimensions.top + ',' + dimensions.height + ',' + dimensions.width)
 
   # Get the different position and do the capture
   getPositions  () ->
@@ -79,10 +80,18 @@ getPositions = (callback) ->
     document.body.offsetHeight,
     document.documentElement.offsetHeight
   ]
+  if (debug) then console.log("widths: " + widths)
+  if (debug) then console.log("height: " + heights)
+
   fullWidth = max(widths)
   fullHeight = max(heights)
   windowWidth = window.innerWidth
   windowHeight = window.innerHeight
+
+  # Since the target image is 100% width in the viewport, we don't care about width extension
+  fullWidth = windowWidth
+
+  if (debug) then console.log("width: " + windowWidth + ", height: " + windowHeight)
   originalX = window.scrollX
   originalY = window.scrollY
   originalOverflowStyle = document.documentElement.style.overflow
@@ -109,18 +118,20 @@ getPositions = (callback) ->
 
     yPos -= yDelta
 
+  if (debug) then console.log ("Arrangements: " + arrangements)
   numArrangements = arrangements.length
 
   cleanUp = () ->
+    if (debug) then console.log "cleanUp"
     document.documentElement.style.overflow = originalOverflowStyle
     window.scrollTo(originalX, originalY)
 
   processArrangement = () ->
-    console.log ("processArrangement: " + arrangements.length)
+    if (debug) then console.log ("processArrangement: " + arrangements.length)
     if (!arrangements.length)
       cleanUp()
       window.scrollTo(0, 0)
-      console.log ("callback")
+      if (debug) then console.log ("callback")
       if (callback) then callback()
 
       return
@@ -147,13 +158,14 @@ getPositions = (callback) ->
       cleanUpTimeout = window.setTimeout(cleanUp, 750)
 
       chrome.extension.sendRequest data, (captured) ->
+        if (debug) then console.log("back frm background")
         window.clearTimeout(cleanUpTimeout)
         if (captured) then processArrangement() #  Move on to capture next arrangement.
         # If there's an error in popup.js, the response value can be
         # undefined, so cleanup
         else cleanUp()
 
-    window.setTimeout timeoutCallback,100
+    window.setTimeout timeoutCallback,200
 
   processArrangement()
 
@@ -170,24 +182,24 @@ chrome.runtime.onMessage.addListener (request,sender,sendResponse) ->
 
   switch request.type
     when "export_done"
-      console.log "Export done"
+      if (debug) then console.log "Export done"
       notifyGweezy("export_done")
 
     when "Gweezy_exportData"
-      console.log "open window"
+      if (debug) then console.log "open window"
       openSaveWindow(request.data)
 
     when "updateCookie"
       updateCookie(request.data)
 
 
-console.log "listen to gweezy"
+if (debug) then console.log "listen to gweezy"
 
 document.addEventListener "Gweezy_plugin_request", (e) ->
-  console.log "send message to gweezy"
+  if (debug) then console.log "send message to gweezy"
   evt = document.createEvent("CustomEvent")
   evt.initCustomEvent("Gweezy_plugin_present",true,false,{
-    version: "0.2.8"
+    version: "0.2.9"
   })
   document.dispatchEvent(evt)
 
